@@ -1,0 +1,38 @@
+#+TITLE: orgmod
+
+Write literate python modules in org mode and import directly in python.
+Inspired by [[https://github.com/miedzinski/import-pypi][import-pypi]]. Relies on org-babel and tangling facility.
+
+As an example, lets make this README an importable module. Lets define a
+~hello_world~ function.
+
+#+BEGIN_SRC python :tangle README.py
+  def hello_world():
+      print("hello world")
+#+END_SRC
+
+In the header for the above code snippet, we set ~:tangle README.py~ (checkout the
+raw version of this file). This creates a module with the name ~README~.
+
+Now to import this module we first import ~orgmod~ and then import ~README~ and then
+run the next code right inside this file.
+
+#+BEGIN_SRC python :results output :exports both
+  # For this code block, tangle is not set
+  import orgmod
+  import README
+
+  README.hello_world()
+#+END_SRC
+
+#+RESULTS:
+: hello world
+
+-----
+
+*Things to do*
+
+- Make the loader and finder more robust and inherit from the newer abstract
+  classes.
+- Move next iterations of orgmod itself inside this README. Might need to
+  bootstrap from the simpler script thats present right now.

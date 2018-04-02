@@ -1,6 +1,6 @@
 #+TITLE: orgmod
 
-[[https://img.shields.io/pypi/v/ledge.svg?style=flat-square]]
+[[https://img.shields.io/pypi/v/orgmod.svg?style=flat-square]]
 
 Write literate python modules in org mode and import directly in python.
 Inspired by [[https://github.com/miedzinski/import-pypi][import-pypi]]. Relies on org-babel and tangling facility.

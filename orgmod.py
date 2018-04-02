@@ -18,6 +18,10 @@ def tangle(orgfile):
     subprocess.check_call(
         cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+    base_name = os.path.splitext(orgfile)[0]
+    if os.path.exists(f"{base_name}.python"):
+        os.rename(f"{base_name}.python", f"{base_name}.py")
+
 
 class OrgFinder:
     def find_module(self, fullname, package_path):

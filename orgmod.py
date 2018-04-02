@@ -1,7 +1,12 @@
 import subprocess
 import importlib
+import shutil
 import sys
 import os
+
+
+def is_emacs_present():
+    return shutil.which("emacs")
 
 
 def tangle(orgfile):
@@ -36,6 +41,10 @@ class OrgLoader:
         module = importlib.import_module(fullname)
         os.remove(f"{fullpath}.py")
         sys.modules[fullname] = module
+
+
+if not is_emacs_present():
+    raise Exception("Emacs not found. Please install emacs to import org modules.")
 
 
 sys.meta_path.append(OrgFinder())

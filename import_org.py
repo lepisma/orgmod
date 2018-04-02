@@ -1,12 +1,12 @@
-from importlib.abc import MetaPathFinder
-from importlib.machinery import PathFinder
 import subprocess
+import importlib
 import sys
+import os
 
 
-def tangle(fullname):
+def tangle(filename):
     cmd = [
-        "emacs", "-Q", "--batch", "--file", f"{fullname}.org", "--eval",
+        "emacs", "-Q", "--batch", "--file", filename, "--eval",
         "(org-babel-tangle)"
     ]
 
@@ -14,14 +14,20 @@ def tangle(fullname):
         cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-class OrgFinder(MetaPathFinder):
-    def find_spec(self, fullname, path, target=None):
-        try:
-            tangle(fullname)
-        except subprocess.CalledProcessError:
-            return None
+class OrgFinder:
+    def find_module(self, module_name, package_path):
+        if os.path.exists(f"{module_name}.org"):
+            return OrgLoader()
         else:
-            return PathFinder().find_spec(fullname, path, target)
+            return None
+
+
+class OrgLoader:
+    def load_module(self, fullname):
+        tangle(f"{fullname}.org")
+        module = importlib.import_module(fullname)
+        os.remove(f"{fullname}.py")
+        sys.modules[fullname] = module
 
 
 sys.meta_path.append(OrgFinder())

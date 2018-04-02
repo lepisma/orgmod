@@ -32,6 +32,8 @@ run the next code right inside this file.
 
 *Things to do*
 
+- Require only ~:tangle yes~ instead of filename. Tangling creates file extension
+  of ~.python~, a simple rename should fix this.
 - Make the loader and finder more robust and inherit from the newer abstract
   classes.
 - Move next iterations of orgmod itself inside this README. Might need to

@@ -5,7 +5,7 @@ with open("README.org") as readme_file:
 
 setup(
     name="orgmod",
-    version="0.1.0",
+    version="0.1.1",
     description="Import modules written in org files",
     long_description=readme,
     author="Abhinav Tushar",
